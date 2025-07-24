@@ -3,8 +3,8 @@
 // Configuration Services
 export * from './config';
 
-// GitHub Services  
+// GitHub Services
 export * from './github';
 
 // Webhook Services
-export * from './webhook'; 
+export * from './webhook';

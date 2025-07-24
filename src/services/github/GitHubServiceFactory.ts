@@ -43,7 +43,9 @@ export class GitHubServiceFactory {
    * Get or create service instances for the given installation
    * Uses caching to avoid recreating services unnecessarily
    */
-  public async getServiceInstances(installationId: number): Promise<ServiceInitializationResult> {
+  public async getServiceInstances(
+    installationId: number
+  ): Promise<ServiceInitializationResult> {
     try {
       const config = this.configManager.getConfiguration();
       const cacheKey = this.generateCacheKey(installationId);
@@ -55,7 +57,10 @@ export class GitHubServiceFactory {
       }
 
       // Create new instances
-      const instances = await this.createServiceInstances(config, installationId);
+      const instances = await this.createServiceInstances(
+        config,
+        installationId
+      );
 
       // Cache the instances
       this.serviceInstances.set(cacheKey, instances);
@@ -65,7 +70,10 @@ export class GitHubServiceFactory {
       console.error('❌ Failed to create GitHub service instances:', error);
       return {
         success: false,
-        error: error instanceof Error ? error : new Error('Unknown service creation error'),
+        error:
+          error instanceof Error
+            ? error
+            : new Error('Unknown service creation error'),
       };
     }
   }
@@ -92,7 +100,10 @@ export class GitHubServiceFactory {
     config: GitHubConfiguration,
     installationId: number
   ): Promise<GitHubServiceInstances> {
-    console.log('🔧 Creating GitHub App service for installation:', installationId);
+    console.log(
+      '🔧 Creating GitHub App service for installation:',
+      installationId
+    );
 
     // Create GitHub App service
     const githubService = GitHubService.withApp(
@@ -125,4 +136,4 @@ export class GitHubServiceFactory {
   private generateCacheKey(installationId: number): string {
     return `app-${installationId}`;
   }
-} 
+}
